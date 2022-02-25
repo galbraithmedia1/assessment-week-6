@@ -86,6 +86,11 @@ app.get('/api/player', (req, res) => {
     }
 })
 
+rollbar.log("Hello world!");
+
+rollbar.critical('HELP!!')
+rollbar.warning("getting sketchy here")
+
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
