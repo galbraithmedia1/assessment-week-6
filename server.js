@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 app.use(express.static(path.join(__dirname, "./public")));
 
 // running();
-// app.use(rollbar.errorHandler());
+app.use(rollbar.errorHandler());
 
 app.get("/api/robots", (req, res) => {
   try {
