@@ -19,7 +19,7 @@ var rollbar = new Rollbar({
 rollbar.log("Hello world!");
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/index.html"));
+    res.sendFile(path.join(__dirname, "public/index.html"));
   });
 
 
@@ -29,7 +29,7 @@ app.use(rollbar.errorHandler())
 
 
 
-app.use(express.static(path.join(__dirname, './public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/robots', (req, res) => {
     try {
