@@ -22,6 +22,10 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
   });
 
+running()
+app.use(rollbar.errorHandler())
+
+
 
 app.use(express.static(path.join(__dirname, './public')))
 
@@ -30,6 +34,7 @@ app.get('/api/robots', (req, res) => {
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
+        rollbar.critical('HELP!!')
         res.sendStatus(400)
     }
 })
@@ -42,6 +47,7 @@ app.get('/api/robots/five', (req, res) => {
         res.status(200).send({choices, compDuo})
     } catch (error) {
         console.log('ERROR GETTING FIVE BOTS', error)
+        rollbar.critical('HELP GETTIN BOTS')
         res.sendStatus(400)
     }
 })
@@ -67,12 +73,14 @@ app.post('/api/duel', (req, res) => {
         if (compHealthAfterAttack > playerHealthAfterAttack) {
             playerRecord.losses++
             res.status(200).send('You lost!')
+            rollbar.info("its workings")
         } else {
             playerRecord.losses++
             res.status(200).send('You won!')
         }
     } catch (error) {
         console.log('ERROR DUELING', error)
+        rollbar.critical('HELP!!')
         res.sendStatus(400)
     }
 })
@@ -83,14 +91,19 @@ app.get('/api/player', (req, res) => {
     } catch (error) {
         console.log('ERROR GETTING PLAYER STATS', error)
         res.sendStatus(400)
+        rollbar.warning("getting sketchy here")
     }
 })
 
 rollbar.log("Hello world!");
 
-rollbar.critical('HELP!!')
-rollbar.warning("getting sketchy here")
 
+
+
+running()
+
+
+app.use(rollbar.errorHandler())
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
