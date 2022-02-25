@@ -18,13 +18,13 @@ var rollbar = new Rollbar({
 rollbar.log("Hello world!");
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "./public")));
 
-running();
-app.use(rollbar.errorHandler());
+// running();
+// app.use(rollbar.errorHandler());
 
 app.get("/api/robots", (req, res) => {
   try {
@@ -100,11 +100,7 @@ app.get("/api/player", (req, res) => {
   }
 });
 
-rollbar.log("Hello world!");
 
-running();
-
-app.use(rollbar.errorHandler());
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
