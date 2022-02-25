@@ -3,6 +3,7 @@ const path = require('path')
 const app = express()
 const {bots, playerRecord} = require('./data')
 const {shuffleArray} = require('./utils')
+require('dotenv').config()
 
 app.use(express.json())
 
@@ -18,6 +19,11 @@ var rollbar = new Rollbar({
 // record a generic message and send it to Rollbar
 rollbar.log("Hello world!");
 
+
+
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
   });
@@ -28,8 +34,6 @@ running()
 app.use(rollbar.errorHandler())
 
 
-
-app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/robots', (req, res) => {
     try {
@@ -106,6 +110,8 @@ running()
 
 
 app.use(rollbar.errorHandler())
+
+
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
