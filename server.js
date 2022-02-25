@@ -22,6 +22,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
   });
 
+
+
 running()
 app.use(rollbar.errorHandler())
 
